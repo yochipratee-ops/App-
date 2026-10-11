@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --primary: #006a65;
+    --primary-container: #2bb8b0;
+    --on-primary: #ffffff;
+    --on-primary-container: #004340;
+    --secondary: #006a66;
+    --secondary-container: #78f3eb;
+    --on-secondary-container: #006f6a;
+    --tertiary: #4d6262;
+    --tertiary-container: #93aaa9;
+    --tertiary-fixed: #cfe7e6;
+    --on-tertiary-container: #2a3f3f;
+    --background: #f1fbff;
+    --on-background: #001f26;
+    --surface: #f1fbff;
+    --surface-bright: #f1fbff;
+    --surface-container-lowest: #ffffff;
+    --surface-container-low: #e1f7ff;
+    --surface-container: #d1f4ff;
+    --surface-container-high: #caeefa;
+    --surface-container-highest: #c4e9f4;
+    --surface-dim: #bce0eb;
+    --on-surface: #001f26;
+    --on-surface-variant: #3c4948;
+    --outline: #6c7a78;
+    --outline-variant: #bbc9c7;
+    --error: #ba1a1a;
+    --error-container: #ffdad6;
+    --on-error: #ffffff;
+    --on-error-container: #93000a;
+  }
+
+  body {
+    background-color: #f1fbff;
+    color: #001f26;
+    font-family: 'Be Vietnam Pro', 'Sarabun', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', 'Sarabun', system-ui, -apple-system, sans-serif;
+  }
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.material-symbols-filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Islamic pattern background */
+.pattern-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23cfe7e6' fill-opacity='0.25'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.soft-shadow {
+  box-shadow: 0 4px 20px 0 rgba(22, 58, 67, 0.05);
+}
+
+.interactive-glow {
+  transition: all 0.25s ease;
+}
+.interactive-glow:hover {
+  box-shadow: 0 6px 24px rgba(0, 106, 101, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Hide scrollbar */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Wave animation */
+@keyframes waveAnim {
+  0%, 40%, 100% {
+    transform: scaleY(0.35);
+  }
+  20% {
+    transform: scaleY(1);
+  }
+}
+
+.wave-bar {
+  animation: waveAnim 1.2s infinite ease-in-out;
+  transform-origin: center;
+}
+
+/* Pulse animation */
+@keyframes emergencyPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(186, 26, 26, 0.45);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 12px rgba(186, 26, 26, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(186, 26, 26, 0);
+  }
+}
+
+.pulse-animation {
+  animation: emergencyPulse 2s infinite;
+}
+
+@keyframes micPulseRing {
+  0% {
+    transform: scale(0.96);
+    box-shadow: 0 0 0 0 rgba(43, 184, 176, 0.7);
+  }
+  70% {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 16px rgba(43, 184, 176, 0);
+  }
+  100% {
+    transform: scale(0.96);
+    box-shadow: 0 0 0 0 rgba(43, 184, 176, 0);
+  }
+}
+
+.mic-pulse {
+  animation: micPulseRing 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes voiceListenGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(186, 26, 26, 0.5), 0 0 25px rgba(225, 29, 72, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(186, 26, 26, 0), 0 0 35px rgba(225, 29, 72, 0.5);
+  }
+}
+
+.voice-listen-glow {
+  animation: voiceListenGlow 1.5s infinite ease-in-out;
+}
+
+@keyframes voiceSpeakGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(0, 106, 101, 0.5), 0 0 25px rgba(43, 184, 176, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 16px rgba(0, 106, 101, 0), 0 0 40px rgba(43, 184, 176, 0.6);
+  }
+}
+
+.voice-speak-glow {
+  animation: voiceSpeakGlow 1.8s infinite ease-in-out;
+}
+
+@keyframes thinkingOrbit {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.thinking-orbit {
+  animation: thinkingOrbit 2s linear infinite;
+}
+

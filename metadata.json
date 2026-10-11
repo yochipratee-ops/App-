@@ -1,0 +1,6 @@
+{
+  "name": "Safe Phatna",
+  "description": "Safe Phatna - พื้นที่ปลอดภัยสำหรับทุกความรู้สึก ดูแลสุขภาพใจ ปรึกษาอาจารย์ การเยียวยาใจแบบอิสลาม และการแจ้งเหตุฉุกเฉิน",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
