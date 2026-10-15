@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { TabType, Language, UserProfile, FormalMoodCheckIn, AppRole, VoiceGender } from './types';
 import { DEFAULT_USER_PROFILE } from './data/mockData';
 import { Header } from './components/Header';
@@ -12,6 +12,7 @@ import { TeacherPortalView } from './components/TeacherPortalView';
 import { ParentPortalView } from './components/ParentPortalView';
 import { EmergencyModal } from './components/EmergencyModal';
 import { SafePointsModal } from './components/SafePointsModal';
+import { RolePasscodeModal } from './components/RolePasscodeModal';
 import { soothingAudio } from './utils/audio';
 
 export default function App() {
@@ -20,6 +21,8 @@ export default function App() {
   const [profile, setProfile] = useState<UserProfile>(DEFAULT_USER_PROFILE);
   const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState(false);
   const [isSafePointsModalOpen, setIsSafePointsModalOpen] = useState(false);
+  const [isPasscodeModalOpen, setIsPasscodeModalOpen] = useState(false);
+  const [pendingRole, setPendingRole] = useState<AppRole | null>(null);
 
   const handleUpdateProfile = (updated: Partial<UserProfile>) => {
     setProfile((prev) => ({ ...prev, ...updated }));
@@ -29,6 +32,21 @@ export default function App() {
     soothingAudio.playGentleChime();
     setProfile((prev) => ({ ...prev, role: newRole }));
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleRequestRoleChange = (newRole: AppRole) => {
+    if (newRole === 'student') {
+      handleRoleChange('student');
+      return;
+    }
+    setPendingRole(newRole);
+    setIsPasscodeModalOpen(true);
+  };
+
+  const handlePasscodeSuccess = (role: AppRole) => {
+    setIsPasscodeModalOpen(false);
+    setPendingRole(null);
+    handleRoleChange(role);
   };
 
   const handleGenderChange = (newGender: VoiceGender) => {
@@ -63,16 +81,26 @@ export default function App() {
     });
   };
 
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => setToastMessage(null), 4500);
+      return () => clearTimeout(timer);
+    }
+  }, [toastMessage]);
+
   const handleSelectSafePoint = (pointName: string) => {
-    alert(
+    soothingAudio.playGentleChime();
+    setToastMessage(
       language === 'th'
-        ? `ระบบได้ส่งการแจ้งเตือนไปยังครูผู้ดูแลจุด "${pointName}" เรียบร้อยแล้ว กรุณาเดินทางไปยังจุดนี้อย่างปลอดภัย`
+        ? `ระบบได้ส่งสัญญาณแจ้งเตือนไปยังครูผู้ดูแลจุด "${pointName}" เรียบร้อยแล้ว กรุณาเดินทางไปยังจุดนี้อย่างปลอดภัย`
         : `Safe Point alert sent to staff at "${pointName}". Please proceed to this location safely.`
     );
   };
 
   return (
-    <div className="min-h-screen bg-[#f1fbff] text-[#001f26] flex flex-col font-body selection:bg-[#2bb8b0] selection:text-white">
+    <div className="min-h-screen bg-[#f4f7fb] text-[#091e42] flex flex-col font-body selection:bg-blue-600 selection:text-white">
       {/* Top Application Bar with Role Selector & Language */}
       <Header
         currentTab={currentTab}
@@ -83,7 +111,7 @@ export default function App() {
         language={language}
         onLanguageChange={setLanguage}
         currentRole={profile.role}
-        onRoleChange={handleRoleChange}
+        onRoleChange={handleRequestRoleChange}
         onOpenEmergency={() => setIsEmergencyModalOpen(true)}
       />
 
@@ -202,6 +230,39 @@ export default function App() {
         language={language}
         onSelectSafePoint={handleSelectSafePoint}
       />
+
+      {/* Role Access Passcode Authentication Modal */}
+      <RolePasscodeModal
+        isOpen={isPasscodeModalOpen}
+        targetRole={pendingRole}
+        language={language}
+        onSuccess={handlePasscodeSuccess}
+        onCancel={() => {
+          setIsPasscodeModalOpen(false);
+          setPendingRole(null);
+        }}
+      />
+
+
+      {/* Floating Global Notification Toast */}
+      {toastMessage && (
+        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 max-w-md w-[92%] bg-[#0b1e3b] text-white px-4 py-3 rounded-2xl shadow-2xl border border-blue-400/40 flex items-center justify-between gap-3 animate-in fade-in slide-in-from-top-4 duration-300">
+          <div className="flex items-center gap-2.5">
+            <span className="material-symbols-outlined text-blue-400 text-xl shrink-0 material-symbols-filled">
+              check_circle
+            </span>
+            <span className="text-xs font-semibold leading-relaxed">
+              {toastMessage}
+            </span>
+          </div>
+          <button
+            onClick={() => setToastMessage(null)}
+            className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center shrink-0 text-white"
+          >
+            <span className="material-symbols-outlined text-sm">close</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }

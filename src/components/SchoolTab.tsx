@@ -104,50 +104,50 @@ export const SchoolTab: React.FC<SchoolTabProps> = ({
     <div className="w-full max-w-[1140px] mx-auto px-5 md:px-10 pt-6 pb-28 md:pb-16 flex flex-col gap-8 animate-fade-in">
       {/* Toast Alert */}
       {actionSuccessMsg && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#006a65] text-white px-5 py-3 rounded-2xl shadow-xl border border-[#2bb8b0] text-sm max-w-lg w-[90%] text-center animate-bounce">
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#0b1e3b] text-white px-5 py-3 rounded-2xl shadow-xl border border-blue-400 text-sm max-w-lg w-[90%] text-center animate-bounce">
           {actionSuccessMsg}
         </div>
       )}
 
       {/* Header Section */}
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl md:text-3xl font-extrabold text-[#006a65] tracking-tight">
-          {isTh ? 'ปรึกษาอาจารย์' : 'Teacher Counseling'}
+        <h1 className="text-2xl md:text-3xl font-extrabold text-[#091e42] tracking-tight">
+          {isTh ? 'ปรึกษาอาจารย์และผู้เชี่ยวชาญ' : 'Teacher Counseling & Guidance'}
         </h1>
-        <p className="text-sm md:text-base text-[#3c4948]">
+        <p className="text-sm md:text-base text-slate-600">
           {isTh
             ? 'เลือกอาจารย์ที่คุณรู้สึกสบายใจที่จะปรึกษา เราพร้อมรับฟังและช่วยเหลือคุณเสมอ'
             : 'Select a teacher you feel comfortable confiding in. We are always here to support you.'}
         </p>
 
         {/* Sub Navigation Tabs */}
-        <div className="flex flex-wrap gap-2 mt-4 border-b border-[#cfe7e6] pb-3">
+        <div className="flex flex-wrap gap-2 mt-4 border-b border-slate-200 pb-3">
           <button
             onClick={() => setSchoolSubTab('teachers')}
-            className={`px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-all ${
+            className={`px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-all cursor-pointer ${
               schoolSubTab === 'teachers'
-                ? 'bg-[#006a65] text-white shadow-xs'
-                : 'bg-white text-[#3c4948] border border-[#cfe7e6] hover:bg-[#e1f7ff]'
+                ? 'bg-blue-800 text-white shadow-xs'
+                : 'bg-white text-slate-700 border border-slate-200 hover:bg-blue-50'
             }`}
           >
             👩‍🏫 {isTh ? 'รายชื่ออาจารย์ (16 ท่าน)' : 'Teachers Directory (16)'}
           </button>
           <button
             onClick={() => setSchoolSubTab('safepoints')}
-            className={`px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-all ${
+            className={`px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-all cursor-pointer ${
               schoolSubTab === 'safepoints'
-                ? 'bg-[#006a65] text-white shadow-xs'
-                : 'bg-white text-[#3c4948] border border-[#cfe7e6] hover:bg-[#e1f7ff]'
+                ? 'bg-blue-800 text-white shadow-xs'
+                : 'bg-white text-slate-700 border border-slate-200 hover:bg-blue-50'
             }`}
           >
             🗺️ {isTh ? 'จุดปลอดภัยในโรงเรียน (Safe Points)' : 'Campus Safe Points'}
           </button>
           <button
             onClick={() => setSchoolSubTab('council')}
-            className={`px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-all ${
+            className={`px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-all cursor-pointer ${
               schoolSubTab === 'council'
-                ? 'bg-[#006a65] text-white shadow-xs'
-                : 'bg-white text-[#3c4948] border border-[#cfe7e6] hover:bg-[#e1f7ff]'
+                ? 'bg-blue-800 text-white shadow-xs'
+                : 'bg-white text-slate-700 border border-slate-200 hover:bg-blue-50'
             }`}
           >
             📋 {isTh ? 'Dashboard สภานักเรียน' : 'Student Council Dashboard'}
@@ -159,14 +159,14 @@ export const SchoolTab: React.FC<SchoolTabProps> = ({
       {schoolSubTab === 'teachers' && (
         <div className="flex flex-col gap-8">
           {/* AI Recommendation Banner */}
-          <div className="bg-white/95 rounded-3xl p-6 md:p-8 soft-shadow border border-[#b4cbca]/40">
+          <div className="bg-white rounded-3xl p-6 md:p-8 soft-shadow border border-slate-200">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div>
-                <h2 className="text-lg md:text-xl font-bold text-[#006a65] mb-2 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-2xl">psychology</span>
+                <h2 className="text-lg md:text-xl font-bold text-[#091e42] mb-2 flex items-center gap-2">
+                  <span className="material-symbols-outlined text-2xl text-blue-800">psychology</span>
                   <span>{isTh ? 'ระบบแนะนำอาจารย์ที่เหมาะสม' : 'AI Counselor Matching'}</span>
                 </h2>
-                <p className="text-xs md:text-sm text-[#3c4948] max-w-2xl leading-relaxed">
+                <p className="text-xs md:text-sm text-slate-600 max-w-2xl leading-relaxed">
                   {isTh
                     ? 'หากคุณต้องการ เราสามารถช่วยเชื่อมต่อคุณกับอาจารย์ที่คุณเลือกได้ หรือให้ระบบช่วยแนะนำผู้ที่เชี่ยวชาญตรงกับความกังวลของคุณ'
                     : 'We can match you with an experienced teacher specializing in your exact concerns.'}
@@ -178,7 +178,7 @@ export const SchoolTab: React.FC<SchoolTabProps> = ({
                     setShowAiMatchModal(true);
                     setMatchedTeacher(null);
                   }}
-                  className="bg-[#006a65] text-white font-semibold text-xs md:text-sm px-6 py-3 rounded-full hover:bg-[#004340] transition-colors shadow-sm active:scale-95 text-center"
+                  className="bg-blue-800 text-white font-semibold text-xs md:text-sm px-6 py-3 rounded-full hover:bg-blue-900 transition-colors shadow-sm active:scale-95 text-center cursor-pointer"
                 >
                   {isTh ? 'ให้ระบบช่วยแนะนำ' : 'Get AI Recommendation'}
                 </button>
@@ -187,7 +187,7 @@ export const SchoolTab: React.FC<SchoolTabProps> = ({
                     setFilterRole('all');
                     document.getElementById('teacher-grid')?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="border-2 border-[#006a65] text-[#006a65] font-semibold text-xs md:text-sm px-6 py-3 rounded-full hover:bg-[#e1f7ff] transition-colors active:scale-95 text-center"
+                  className="border-2 border-blue-800 text-blue-800 font-semibold text-xs md:text-sm px-6 py-3 rounded-full hover:bg-blue-50 transition-colors active:scale-95 text-center cursor-pointer"
                 >
                   {isTh ? 'เลือกอาจารย์เอง' : 'Browse All Teachers'}
                 </button>
@@ -199,7 +199,7 @@ export const SchoolTab: React.FC<SchoolTabProps> = ({
           <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
             {/* Search Input */}
             <div className="relative w-full md:w-72">
-              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#6c7a78] text-lg">
+              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">
                 search
               </span>
               <input
@@ -207,7 +207,7 @@ export const SchoolTab: React.FC<SchoolTabProps> = ({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={isTh ? 'ค้นหาชื่อ หรือปัญหาที่กังวล...' : 'Search teacher or specialty...'}
-                className="w-full bg-white rounded-full py-2.5 pl-10 pr-4 text-xs md:text-sm border border-[#cfe7e6] outline-none focus:border-[#006a65] shadow-xs"
+                className="w-full bg-white rounded-full py-2.5 pl-10 pr-4 text-xs md:text-sm border border-slate-200 outline-none focus:border-blue-600 shadow-xs"
               />
             </div>
 
@@ -215,9 +215,9 @@ export const SchoolTab: React.FC<SchoolTabProps> = ({
             <div className="flex gap-2 overflow-x-auto hide-scrollbar w-full md:w-auto pb-1">
               <button
                 onClick={() => setFilterRole('all')}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                   filterRole === 'all'
-                    ? 'bg-[#006a65] text-white shadow-xs'
+                    ? 'bg-blue-800 text-white shadow-xs'
                     : 'bg-white text-[#3c4948] border border-[#cfe7e6] hover:bg-[#e1f7ff]'
                 }`}
               >

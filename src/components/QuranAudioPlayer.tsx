@@ -4,11 +4,18 @@ import { SURAH_DATABASE, SurahItem } from '../data/quranData';
 
 interface QuranAudioPlayerProps {
   language: Language;
+  activeSurahNumber?: number;
 }
 
-export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language }) => {
+export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language, activeSurahNumber }) => {
   const isTh = language === 'th';
-  const [selectedSurah, setSelectedSurah] = useState<SurahItem>(SURAH_DATABASE[0]);
+  const [selectedSurah, setSelectedSurah] = useState<SurahItem>(() => {
+    if (activeSurahNumber) {
+      const match = SURAH_DATABASE.find((s) => s.surahNumber === activeSurahNumber);
+      if (match) return match;
+    }
+    return SURAH_DATABASE[0];
+  });
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -20,6 +27,15 @@ export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language }) 
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const mirrorIndexRef = useRef(0);
+
+  useEffect(() => {
+    if (activeSurahNumber) {
+      const match = SURAH_DATABASE.find((s) => s.surahNumber === activeSurahNumber);
+      if (match && match.surahNumber !== selectedSurah.surahNumber) {
+        setSelectedSurah(match);
+      }
+    }
+  }, [activeSurahNumber]);
 
   const getAudioSources = (surahNumber: number) => {
     const pad = String(surahNumber).padStart(3, '0');
@@ -187,29 +203,29 @@ export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language }) 
   };
 
   return (
-    <div className="w-full bg-white rounded-3xl p-6 md:p-8 border border-[#cfe7e6] soft-shadow flex flex-col gap-6 relative overflow-hidden">
+    <div className="w-full bg-white rounded-3xl p-6 md:p-8 border border-slate-200 soft-shadow flex flex-col gap-6 relative">
       {/* Pattern header background */}
-      <div className="pattern-overlay absolute inset-0 opacity-15 pointer-events-none"></div>
+      <div className="pattern-overlay absolute inset-0 opacity-15 pointer-events-none rounded-3xl"></div>
 
       {/* Top Banner & Surah Selector Header */}
-      <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-[#cfe7e6]">
+      <div className="relative z-30 flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-200">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#e1f7ff] rounded-full text-[#006a65] text-xs font-bold mb-2 border border-[#cfe7e6]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-full text-blue-800 text-xs font-bold mb-2 border border-blue-200">
             <span className="material-symbols-outlined text-sm material-symbols-filled">menu_book</span>
             <span>{isTh ? 'เสียงอัลกุรอานพร้อมคำแปลและความหมาย' : 'Authentic Quran Recitation with Meaning'}</span>
           </div>
-          <h3 className="text-xl md:text-2xl font-extrabold text-[#001f26] flex items-center gap-3">
+          <h3 className="text-xl md:text-2xl font-extrabold text-[#091e42] flex items-center gap-3">
             <span>{selectedSurah.nameTh}</span>
-            <span className="font-arabic text-2xl text-[#006a65] font-normal" dir="rtl">
+            <span className="font-arabic text-2xl text-blue-800 font-normal" dir="rtl">
               {selectedSurah.nameArabic}
             </span>
           </h3>
-          <p className="text-xs text-[#6c7a78] mt-1 flex items-center gap-2 flex-wrap">
+          <p className="text-xs text-slate-500 mt-1 flex items-center gap-2 flex-wrap">
             <span>{selectedSurah.nameEn}</span>
             <span>•</span>
             <span>{isTh ? `${selectedSurah.versesCount} อายะฮ์` : `${selectedSurah.versesCount} Verses`}</span>
             <span>•</span>
-            <span className="text-[#006a65] font-semibold">{selectedSurah.reciterNameTh}</span>
+            <span className="text-blue-700 font-semibold">{selectedSurah.reciterNameTh}</span>
           </p>
         </div>
 
@@ -217,73 +233,116 @@ export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language }) 
         <div className="relative shrink-0">
           <button
             onClick={() => setIsSurahListOpen(!isSurahListOpen)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-[#006a65] hover:bg-[#004340] text-white rounded-full text-xs md:text-sm font-bold shadow-xs active:scale-95 transition-all"
+            className="flex items-center gap-2 px-4 py-2.5 bg-blue-700 hover:bg-blue-800 text-white rounded-full text-xs md:text-sm font-bold shadow-md active:scale-95 transition-all cursor-pointer ring-2 ring-blue-500/20"
           >
             <span className="material-symbols-outlined text-base">format_list_bulleted</span>
             <span>{isTh ? 'เลือกซูเราะฮ์อื่น' : 'Select Surah'}</span>
-            <span className="material-symbols-outlined text-sm">expand_more</span>
+            <span className="material-symbols-outlined text-sm">{isSurahListOpen ? 'expand_less' : 'expand_more'}</span>
           </button>
 
           {/* Surah Dropdown Modal / Picker */}
           {isSurahListOpen && (
-            <div className="absolute right-0 top-12 z-30 w-72 md:w-80 bg-white rounded-2xl shadow-2xl border border-[#cfe7e6] p-2 flex flex-col gap-1 max-h-80 overflow-y-auto animate-fade-in">
-              <span className="text-[11px] font-bold text-[#6c7a78] px-3 py-1 block uppercase">
-                {isTh ? 'เลือกซูเราะฮ์เพื่อฟังเสียงและอ่านคำแปล:' : 'Select Surah:'}
-              </span>
-              {SURAH_DATABASE.map((surah) => (
-                <button
-                  key={surah.id}
-                  onClick={() => handleSelectSurah(surah)}
-                  className={`w-full text-left px-3 py-2.5 rounded-xl text-xs flex items-center justify-between transition-all ${
-                    selectedSurah.id === surah.id
-                      ? 'bg-[#006a65] text-white font-bold'
-                      : 'hover:bg-[#f1fbff] text-[#001f26]'
-                  }`}
-                >
-                  <div className="flex flex-col">
-                    <span className="font-semibold">{surah.nameTh}</span>
-                    <span className="text-[10px] opacity-75">{surah.healingBenefitTh.slice(0, 35)}...</span>
-                  </div>
-                  <span className="font-arabic text-base ml-2" dir="rtl">{surah.nameArabic}</span>
-                </button>
-              ))}
-            </div>
+            <>
+              {/* Click-outside backdrop */}
+              <div
+                className="fixed inset-0 z-40 bg-black/25 backdrop-blur-2xs"
+                onClick={() => setIsSurahListOpen(false)}
+              />
+              <div className="absolute right-0 top-12 z-50 w-72 sm:w-84 md:w-96 bg-white rounded-2xl shadow-2xl border-2 border-blue-600/40 p-2.5 flex flex-col gap-1.5 max-h-96 overflow-y-auto animate-in fade-in zoom-in-95 duration-150">
+                <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200">
+                  <span className="text-[11px] font-extrabold text-blue-900 block uppercase tracking-wider">
+                    {isTh ? 'เลือกซูเราะฮ์เพื่อฟังเสียงและอ่านคำแปล:' : 'Select Surah & Tafsir:'}
+                  </span>
+                  <button
+                    onClick={() => setIsSurahListOpen(false)}
+                    className="text-slate-400 hover:text-slate-700 p-0.5 rounded-full cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-sm">close</span>
+                  </button>
+                </div>
+                {SURAH_DATABASE.map((surah) => (
+                  <button
+                    key={surah.id}
+                    onClick={() => handleSelectSurah(surah)}
+                    className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs flex items-center justify-between transition-all cursor-pointer ${
+                      selectedSurah.id === surah.id
+                        ? 'bg-blue-700 text-white font-bold shadow-xs'
+                        : 'hover:bg-blue-50 text-slate-800'
+                    }`}
+                  >
+                    <div className="flex flex-col gap-0.5">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${selectedSurah.id === surah.id ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-800'}`}>
+                          {surah.surahNumber}
+                        </span>
+                        <span className="font-bold">{surah.nameTh}</span>
+                      </div>
+                      <span className={`text-[10px] pl-7 ${selectedSurah.id === surah.id ? 'text-white/80' : 'text-slate-500'}`}>
+                        {surah.healingBenefitTh.slice(0, 45)}...
+                      </span>
+                    </div>
+                    <span className="font-arabic text-base ml-2 shrink-0 font-normal" dir="rtl">{surah.nameArabic}</span>
+                  </button>
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>
 
+      {/* Quick Surah selection chips - 1 tap switch */}
+      <div className="relative z-20 flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 -mt-2">
+        <span className="text-[11px] font-bold text-slate-500 shrink-0 mr-1 flex items-center gap-1">
+          <span className="material-symbols-outlined text-xs text-blue-700">tune</span>
+          <span>{isTh ? 'เลือกด่วน:' : 'Quick:'}</span>
+        </span>
+        {SURAH_DATABASE.map((surah) => (
+          <button
+            key={surah.id}
+            onClick={() => handleSelectSurah(surah)}
+            className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+              selectedSurah.id === surah.id
+                ? 'bg-blue-700 text-white shadow-xs font-bold'
+                : 'bg-slate-50 hover:bg-blue-50 text-blue-900 border border-slate-200'
+            }`}
+          >
+            {surah.nameTh}
+          </button>
+        ))}
+      </div>
+
       {/* THEMATIC EXPLANATION BANNER (ซูเราะฮ์นี้กำลังพูดถึงอะไร) */}
-      <div className="relative z-10 bg-gradient-to-r from-[#e1f7ff] via-[#f1fbff] to-white p-5 rounded-2xl border border-[#2bb8b0]/40 shadow-xs flex flex-col gap-2.5">
+      <div className="relative z-10 bg-gradient-to-r from-blue-50/70 via-slate-50 to-white p-5 rounded-2xl border border-blue-200 shadow-xs flex flex-col gap-2.5">
         <div className="flex items-center gap-2">
-          <span className="material-symbols-outlined text-[#006a65] text-lg material-symbols-filled">
+          <span className="material-symbols-outlined text-blue-700 text-lg material-symbols-filled">
             lightbulb
           </span>
-          <span className="text-xs md:text-sm font-bold text-[#004340] uppercase tracking-wide">
+          <span className="text-xs md:text-sm font-bold text-blue-950 uppercase tracking-wide">
             {isTh ? 'ซูเราะฮ์นี้กำลังพูดถึงอะไร & เยียวยาจิตใจอย่างไร:' : 'What this Surah is about:'}
           </span>
         </div>
-        <p className="text-xs md:text-sm text-[#001f26] leading-relaxed font-normal">
+        <p className="text-xs md:text-sm text-slate-800 leading-relaxed font-normal">
           {selectedSurah.thematicExplanationTh}
         </p>
-        <div className="pt-2 border-t border-[#cfe7e6]/70 flex items-center gap-1.5 text-xs font-semibold text-[#006a65]">
+        <div className="pt-2 border-t border-slate-200 flex items-center gap-1.5 text-xs font-semibold text-blue-800">
           <span className="material-symbols-outlined text-sm">spa</span>
           <span>{isTh ? `คุณประโยชน์ทางใจ: ${selectedSurah.healingBenefitTh}` : `Benefit: ${selectedSurah.healingBenefitTh}`}</span>
         </div>
       </div>
 
       {/* AUDIO PLAYER CONTROLS & EQUALIZER */}
-      <div className="relative z-10 bg-[#001f26] text-white p-5 md:p-6 rounded-2xl flex flex-col gap-4 shadow-lg">
+      <div className="relative z-10 bg-[#0b1e3b] text-white p-5 md:p-6 rounded-2xl flex flex-col gap-4 shadow-lg border border-blue-900/50">
         {/* Equalizer animation when playing */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#006a65] flex items-center justify-center text-white">
+            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white">
               <span className="material-symbols-outlined text-xl material-symbols-filled">
                 {isPlaying ? 'graphic_eq' : 'music_note'}
               </span>
             </div>
             <div>
               <span className="text-xs md:text-sm font-bold block">{selectedSurah.nameTh}</span>
-              <span className="text-[11px] text-[#78f3eb]">{selectedSurah.reciterNameTh}</span>
+              <span className="text-[11px] text-blue-300">{selectedSurah.reciterNameTh}</span>
             </div>
           </div>
 
@@ -292,7 +351,7 @@ export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language }) 
             {[10, 18, 24, 16, 22, 14, 20].map((h, i) => (
               <div
                 key={i}
-                className={`w-1 bg-[#2bb8b0] rounded-full transition-all duration-200 ${
+                className={`w-1 bg-blue-400 rounded-full transition-all duration-200 ${
                   isPlaying ? 'wave-bar' : 'h-1.5 opacity-50'
                 }`}
                 style={{
@@ -312,9 +371,9 @@ export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language }) 
             max={duration || 100}
             value={currentTime}
             onChange={handleSeek}
-            className="w-full h-2 bg-[#4d6262] rounded-lg appearance-none cursor-pointer accent-[#2bb8b0]"
+            className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
           />
-          <div className="flex justify-between text-[11px] text-[#cfe7e6]">
+          <div className="flex justify-between text-[11px] text-slate-300">
             <span>{formatTime(currentTime)}</span>
             <span>{formatTime(duration)}</span>
           </div>
@@ -324,7 +383,7 @@ export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language }) 
         <div className="flex items-center justify-between pt-1">
           {/* Volume Control */}
           <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-sm text-[#cfe7e6]">volume_up</span>
+            <span className="material-symbols-outlined text-sm text-slate-300">volume_up</span>
             <input
               type="range"
               min={0}
@@ -332,7 +391,7 @@ export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language }) 
               step={0.05}
               value={volume}
               onChange={handleVolumeChange}
-              className="w-16 md:w-24 h-1.5 bg-[#4d6262] rounded-lg appearance-none cursor-pointer accent-[#2bb8b0]"
+              className="w-16 md:w-24 h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-400"
             />
           </div>
 
@@ -341,7 +400,7 @@ export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language }) 
             <button
               onClick={handleTogglePlay}
               disabled={isLoadingAudio}
-              className="w-14 h-14 rounded-full bg-[#2bb8b0] hover:bg-[#78f3eb] text-[#001f26] flex items-center justify-center shadow-lg active:scale-95 transition-all relative disabled:opacity-80"
+              className="w-14 h-14 rounded-full bg-blue-500 hover:bg-blue-400 text-white flex items-center justify-center shadow-lg active:scale-95 transition-all relative disabled:opacity-80 cursor-pointer"
             >
               {isLoadingAudio ? (
                 <span className="material-symbols-outlined text-2xl animate-spin">
@@ -365,7 +424,7 @@ export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language }) 
               }
             }}
             title="Replay"
-            className="text-[#cfe7e6] hover:text-white p-2"
+            className="text-slate-300 hover:text-white p-2 cursor-pointer"
           >
             <span className="material-symbols-outlined text-lg">replay</span>
           </button>
@@ -380,12 +439,12 @@ export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language }) 
 
       {/* VERSE BY VERSE TRANSCRIPTION & THAI TRANSLATION */}
       <div className="relative z-10 flex flex-col gap-3">
-        <div className="flex items-center justify-between pb-2 border-b border-[#cfe7e6]">
-          <span className="text-xs font-bold text-[#006a65] uppercase flex items-center gap-1.5">
+        <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+          <span className="text-xs font-bold text-blue-900 uppercase flex items-center gap-1.5">
             <span className="material-symbols-outlined text-sm">translate</span>
             <span>{isTh ? 'เนื้อหาอัลกุรอาน คำอ่าน และคำแปลความหมายภาษาไทย:' : 'Verses and Translation:'}</span>
           </span>
-          <span className="text-[11px] text-[#6c7a78]">
+          <span className="text-[11px] text-slate-500">
             {isTh ? `อายะฮ์ที่ 1 ถึง ${selectedSurah.verses.length}` : `Verses 1 to ${selectedSurah.verses.length}`}
           </span>
         </div>
@@ -398,16 +457,16 @@ export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language }) 
                 key={verse.verseNumber}
                 className={`p-4 rounded-2xl border transition-all ${
                   isHighlighted
-                    ? 'bg-[#e1f7ff] border-[#006a65] ring-2 ring-[#006a65]/20 shadow-xs'
-                    : 'bg-[#f1fbff]/60 border-[#cfe7e6] hover:bg-white'
+                    ? 'bg-blue-50/80 border-blue-600 ring-2 ring-blue-500/20 shadow-xs'
+                    : 'bg-slate-50/60 border-slate-200 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="w-6 h-6 rounded-full bg-[#006a65] text-white text-[11px] font-bold flex items-center justify-center shrink-0">
+                  <span className="w-6 h-6 rounded-full bg-blue-800 text-white text-[11px] font-bold flex items-center justify-center shrink-0">
                     {verse.verseNumber}
                   </span>
                   {isHighlighted && (
-                    <span className="text-[10px] font-bold text-[#006a65] bg-white px-2 py-0.5 rounded-full border border-[#006a65]/30 animate-pulse">
+                    <span className="text-[10px] font-bold text-blue-700 bg-white px-2 py-0.5 rounded-full border border-blue-300 animate-pulse">
                       {isTh ? 'กำลังอ่านอายะฮ์นี้' : 'Reciting'}
                     </span>
                   )}
@@ -416,18 +475,18 @@ export const QuranAudioPlayer: React.FC<QuranAudioPlayerProps> = ({ language }) 
                 {/* Arabic Text */}
                 <p
                   dir="rtl"
-                  className="font-arabic text-xl md:text-2xl text-[#001f26] font-semibold text-right leading-loose mb-2"
+                  className="font-arabic text-xl md:text-2xl text-[#091e42] font-semibold text-right leading-loose mb-2"
                 >
                   {verse.arabic}
                 </p>
 
                 {/* Transliteration */}
-                <p className="text-xs text-[#6c7a78] italic mb-1">
+                <p className="text-xs text-slate-500 italic mb-1">
                   "{verse.transliterationTh}"
                 </p>
 
                 {/* Translation */}
-                <p className="text-xs md:text-sm font-medium text-[#004340] leading-relaxed">
+                <p className="text-xs md:text-sm font-medium text-slate-800 leading-relaxed">
                   {verse.translationTh}
                 </p>
               </div>

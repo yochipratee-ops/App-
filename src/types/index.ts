@@ -141,3 +141,28 @@ export interface ParentStudentReport {
   teacherAdvisor: string;
   recentNotes: string;
 }
+
+export interface MoodDiaryEntry {
+  id: string;
+  timestamp: string;
+  timeFormatted: string;
+  moodId: string;
+  moodLabelTh: string;
+  moodLabelEn: string;
+  moodLevel: number;
+  moodIcon: string;
+  content: string;
+  promptTopic?: string;
+  aiReflection: {
+    replyTh: string;
+    replyEn: string;
+    keyThemeTh: string;
+    keyThemeEn: string;
+    actionAdviceTh: string;
+    actionAdviceEn: string;
+    recommendedSurahNumber?: number;
+    recommendedSurahName?: string;
+  };
+  sharedWithCounselor?: boolean;
+}
+

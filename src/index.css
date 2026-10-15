@@ -2,31 +2,31 @@
 
 @layer base {
   :root {
-    --primary: #006a65;
-    --primary-container: #2bb8b0;
+    --primary: #102a4e;
+    --primary-container: #1e3a8a;
     --on-primary: #ffffff;
-    --on-primary-container: #004340;
-    --secondary: #006a66;
-    --secondary-container: #78f3eb;
-    --on-secondary-container: #006f6a;
-    --tertiary: #4d6262;
-    --tertiary-container: #93aaa9;
-    --tertiary-fixed: #cfe7e6;
-    --on-tertiary-container: #2a3f3f;
-    --background: #f1fbff;
-    --on-background: #001f26;
-    --surface: #f1fbff;
-    --surface-bright: #f1fbff;
+    --on-primary-container: #dbeafe;
+    --secondary: #1d4ed8;
+    --secondary-container: #bfdbfe;
+    --on-secondary-container: #172554;
+    --tertiary: #0284c7;
+    --tertiary-container: #bae6fd;
+    --tertiary-fixed: #e0f2fe;
+    --on-tertiary-container: #0c4a6e;
+    --background: #f4f7fb;
+    --on-background: #091e42;
+    --surface: #ffffff;
+    --surface-bright: #ffffff;
     --surface-container-lowest: #ffffff;
-    --surface-container-low: #e1f7ff;
-    --surface-container: #d1f4ff;
-    --surface-container-high: #caeefa;
-    --surface-container-highest: #c4e9f4;
-    --surface-dim: #bce0eb;
-    --on-surface: #001f26;
-    --on-surface-variant: #3c4948;
-    --outline: #6c7a78;
-    --outline-variant: #bbc9c7;
+    --surface-container-low: #f8fafc;
+    --surface-container: #f1f5f9;
+    --surface-container-high: #e2e8f0;
+    --surface-container-highest: #cbd5e1;
+    --surface-dim: #94a3b8;
+    --on-surface: #091e42;
+    --on-surface-variant: #334155;
+    --outline: #64748b;
+    --outline-variant: #cbd5e1;
     --error: #ba1a1a;
     --error-container: #ffdad6;
     --on-error: #ffffff;
@@ -34,8 +34,8 @@
   }
 
   body {
-    background-color: #f1fbff;
-    color: #001f26;
+    background-color: #f4f7fb;
+    color: #091e42;
     font-family: 'Be Vietnam Pro', 'Sarabun', system-ui, -apple-system, sans-serif;
   }
 
@@ -71,14 +71,14 @@
 }
 
 .soft-shadow {
-  box-shadow: 0 4px 20px 0 rgba(22, 58, 67, 0.05);
+  box-shadow: 0 4px 20px 0 rgba(16, 42, 78, 0.06);
 }
 
 .interactive-glow {
   transition: all 0.25s ease;
 }
 .interactive-glow:hover {
-  box-shadow: 0 6px 24px rgba(0, 106, 101, 0.15);
+  box-shadow: 0 6px 24px rgba(30, 58, 138, 0.15);
   transform: translateY(-2px);
 }
 

@@ -157,11 +157,11 @@ export const MentalHealthAssessmentModal: React.FC<MentalHealthAssessmentModalPr
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl p-6 md:p-8 max-w-2xl w-full shadow-2xl border border-[#cfe7e6] relative animate-fade-in text-left max-h-[92vh] overflow-y-auto">
+      <div className="bg-white rounded-3xl p-6 md:p-8 max-w-2xl w-full shadow-2xl border border-slate-200 relative animate-fade-in text-left max-h-[92vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#f1fbff] flex items-center justify-center text-[#6c7a78] hover:text-[#001f26] transition-colors"
+          className="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-[#091e42] transition-colors cursor-pointer"
         >
           <span className="material-symbols-outlined text-xl">close</span>
         </button>
@@ -170,16 +170,16 @@ export const MentalHealthAssessmentModal: React.FC<MentalHealthAssessmentModalPr
         {currentStep === 'intro' && (
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#006a65] text-white flex items-center justify-center shrink-0 shadow-md">
+              <div className="w-12 h-12 rounded-2xl bg-blue-800 text-white flex items-center justify-center shrink-0 shadow-md">
                 <span className="material-symbols-outlined text-2xl material-symbols-filled">
                   health_and_safety
                 </span>
               </div>
               <div>
-                <h3 className="text-xl md:text-2xl font-extrabold text-[#001f26]">
+                <h3 className="text-xl md:text-2xl font-extrabold text-[#091e42]">
                   {isTh ? 'แบบคัดกรองสุขภาพจิตมาตรฐาน (Standard 9Q Assessment)' : 'Official Mental Health Assessment'}
                 </h3>
-                <span className="text-xs text-[#6c7a78]">
+                <span className="text-xs text-slate-500">
                   {isTh
                     ? 'เครื่องมือประเมินระดับความเครียดและสุขภาพจิตตามเกณฑ์มาตรฐานกรมสุขภาพจิต'
                     : 'Standardized psychological screening tool for institutional student care'}
@@ -187,12 +187,12 @@ export const MentalHealthAssessmentModal: React.FC<MentalHealthAssessmentModalPr
               </div>
             </div>
 
-            <div className="p-4 bg-[#f1fbff] rounded-2xl border border-[#cfe7e6] flex flex-col gap-2">
-              <span className="text-xs font-bold text-[#006a65] flex items-center gap-1.5">
+            <div className="p-4 bg-blue-50/70 rounded-2xl border border-blue-200 flex flex-col gap-2">
+              <span className="text-xs font-bold text-blue-900 flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-sm">verified_user</span>
                 <span>{isTh ? 'ข้อมูลของคุณเป็นความลับสูงสุด (Confidential)' : '100% Confidential'}</span>
               </span>
-              <p className="text-xs text-[#3c4948] leading-relaxed">
+              <p className="text-xs text-slate-700 leading-relaxed">
                 {isTh
                   ? 'แบบประเมินนี้ประกอบด้วย 9 ข้อคำถาม ใช้เวลาเพียง 2-3 นาที เพื่อวิเคราะห์ระดับความตึงเครียด ภาวะอารมณ์ และความเหนื่อยล้าสะสม ช่วยให้ระบบปรับแต่งการดูแลและข้อความของ AI ให้ตรงกับคุณอย่างแท้จริง'
                   : 'Consists of 9 clinical questions taking 2-3 minutes to measure stress and emotional fatigue for tailored institutional support.'}
@@ -202,14 +202,14 @@ export const MentalHealthAssessmentModal: React.FC<MentalHealthAssessmentModalPr
             <div className="flex flex-col gap-2 pt-2">
               <button
                 onClick={() => setCurrentStep('questions')}
-                className="w-full py-4 bg-[#006a65] hover:bg-[#004340] text-white rounded-full font-bold text-sm shadow-md active:scale-95 transition-all flex items-center justify-center gap-2"
+                className="w-full py-4 bg-blue-800 hover:bg-blue-900 text-white rounded-full font-bold text-sm shadow-md active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>{isTh ? 'เริ่มทำแบบประเมินสุขภาพจิต (9 ข้อ)' : 'Start 9-Question Assessment'}</span>
                 <span className="material-symbols-outlined text-base">arrow_forward</span>
               </button>
               <button
                 onClick={onClose}
-                className="w-full py-2.5 text-xs text-[#6c7a78] hover:text-[#001f26] font-semibold"
+                className="w-full py-2.5 text-xs text-slate-500 hover:text-[#091e42] font-semibold cursor-pointer"
               >
                 {isTh ? 'ไว้ทำภายหลัง' : 'Skip for now'}
               </button>
@@ -220,16 +220,16 @@ export const MentalHealthAssessmentModal: React.FC<MentalHealthAssessmentModalPr
         {/* STEP 2: QUESTIONS LIST */}
         {currentStep === 'questions' && (
           <div className="flex flex-col gap-6">
-            <div className="pb-3 border-b border-[#cfe7e6]">
+            <div className="pb-3 border-b border-slate-200">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg md:text-xl font-bold text-[#001f26]">
+                <h3 className="text-lg md:text-xl font-bold text-[#091e42]">
                   {isTh ? 'แบบประเมินสภาวะทางอารมณ์และจิตใจ' : 'Psychological Questionnaire'}
                 </h3>
-                <span className="text-xs font-bold text-[#006a65] bg-[#e1f7ff] px-3 py-1 rounded-full border border-[#cfe7e6]">
+                <span className="text-xs font-bold text-blue-900 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
                   {Object.keys(answers).length} / {ASSESSMENT_QUESTIONS.length} {isTh ? 'ข้อ' : 'answered'}
                 </span>
               </div>
-              <p className="text-xs text-[#6c7a78] mt-1">
+              <p className="text-xs text-slate-500 mt-1">
                 {isTh
                   ? 'โปรดเลือกคำตอบที่ตรงกับความรู้สึกของคุณมากที่สุดในช่วง 2 สัปดาห์ที่ผ่านมา'
                   : 'Select how often you have been bothered by these problems in the last 2 weeks.'}
@@ -241,9 +241,9 @@ export const MentalHealthAssessmentModal: React.FC<MentalHealthAssessmentModalPr
               {ASSESSMENT_QUESTIONS.map((q) => (
                 <div
                   key={q.id}
-                  className="p-4 bg-[#f1fbff]/60 border border-[#cfe7e6] rounded-2xl flex flex-col gap-3"
+                  className="p-4 bg-slate-50/70 border border-slate-200 rounded-2xl flex flex-col gap-3"
                 >
-                  <span className="text-xs md:text-sm font-bold text-[#001f26]">
+                  <span className="text-xs md:text-sm font-bold text-[#091e42]">
                     {q.id}. {isTh ? q.textTh : q.textEn}
                   </span>
 
@@ -256,10 +256,10 @@ export const MentalHealthAssessmentModal: React.FC<MentalHealthAssessmentModalPr
                           key={opt.score}
                           type="button"
                           onClick={() => handleSelectOption(q.id, opt.score)}
-                          className={`p-2.5 rounded-xl text-xs text-left border transition-all ${
+                          className={`p-2.5 rounded-xl text-xs text-left border transition-all cursor-pointer ${
                             isSelected
-                              ? 'bg-[#006a65] text-white border-[#006a65] font-bold shadow-xs'
-                              : 'bg-white text-[#3c4948] border-[#cfe7e6] hover:bg-[#e1f7ff]'
+                              ? 'bg-blue-800 text-white border-blue-800 font-bold shadow-xs'
+                              : 'bg-white text-slate-700 border-slate-200 hover:bg-blue-50'
                           }`}
                         >
                           <span className="block font-medium">{isTh ? opt.labelTh : opt.labelEn}</span>
@@ -276,9 +276,9 @@ export const MentalHealthAssessmentModal: React.FC<MentalHealthAssessmentModalPr
               <button
                 disabled={!isAllAnswered}
                 onClick={calculateResult}
-                className={`w-full py-4 rounded-full font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 ${
+                className={`w-full py-4 rounded-full font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer ${
                   isAllAnswered
-                    ? 'bg-[#006a65] hover:bg-[#004340] text-white active:scale-95'
+                    ? 'bg-blue-800 hover:bg-blue-900 text-white active:scale-95'
                     : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                 }`}
               >

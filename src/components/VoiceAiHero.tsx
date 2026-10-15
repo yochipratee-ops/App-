@@ -193,16 +193,16 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
   };
 
   return (
-    <section className="w-full bg-gradient-to-b from-white via-[#f1fbff] to-white rounded-3xl p-6 md:p-8 border border-[#cfe7e6] soft-shadow relative overflow-hidden">
+    <section className="w-full bg-gradient-to-b from-white via-blue-50/30 to-white rounded-3xl p-6 md:p-8 border border-slate-200 soft-shadow relative overflow-hidden">
       {/* Background Institutional Pattern */}
-      <div className="pattern-overlay absolute inset-0 opacity-20 pointer-events-none"></div>
+      <div className="pattern-overlay absolute inset-0 opacity-15 pointer-events-none"></div>
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-2xl mx-auto">
         {/* Top Header: Badge, Gender Toggle, and Edit AI Name */}
-        <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 mb-6 pb-4 border-b border-[#cfe7e6]/70">
+        <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-200">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#10b981] animate-ping"></span>
-            <span className="text-xs font-bold text-[#006a65] tracking-wide uppercase">
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping"></span>
+            <span className="text-xs font-bold text-blue-900 tracking-wide uppercase">
               {isTh ? 'AI สนทนาเสียงโต้ตอบตรงประเด็น (Two-Way Voice AI)' : 'Direct Voice AI Assistant'}
             </span>
           </div>
@@ -212,9 +212,9 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
             <button
               onClick={() => setIsEditingName(true)}
               title={isTh ? 'เปลี่ยนชื่อ AI' : 'Change AI Name'}
-              className="flex items-center gap-1.5 px-3 py-1 bg-white hover:bg-[#e1f7ff] text-[#006a65] border border-[#cfe7e6] rounded-full text-xs font-bold transition-all shadow-2xs active:scale-95"
+              className="flex items-center gap-1.5 px-3 py-1 bg-white hover:bg-blue-50 text-blue-900 border border-slate-200 rounded-full text-xs font-bold transition-all shadow-2xs active:scale-95"
             >
-              <span className="material-symbols-outlined text-sm">edit</span>
+              <span className="material-symbols-outlined text-sm text-blue-700">edit</span>
               <span>{isTh ? `เปลี่ยนชื่อ AI (${aiName})` : `Edit Name (${aiName})`}</span>
             </button>
 
@@ -227,25 +227,25 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
               title={isTh ? 'โหมดคุยโต้ตอบต่อเนื่องอัตโนมัติ (Hands-Free)' : 'Continuous Dialogue Mode'}
               className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold transition-all border shadow-2xs active:scale-95 ${
                 isContinuousMode
-                  ? 'bg-[#006a65] text-white border-[#006a65]'
-                  : 'bg-white text-[#4d6262] border-[#cfe7e6] hover:bg-[#e1f7ff]'
+                  ? 'bg-blue-800 text-white border-blue-900'
+                  : 'bg-white text-slate-600 border-slate-200 hover:bg-blue-50'
               }`}
             >
               <span className={`material-symbols-outlined text-sm ${isContinuousMode ? 'animate-spin' : ''}`}>
                 sync
               </span>
               <span>{isTh ? 'โต้ตอบต่อเนื่อง' : 'Hands-Free'}</span>
-              <span className={`w-1.5 h-1.5 rounded-full ${isContinuousMode ? 'bg-[#78f3eb]' : 'bg-gray-300'}`}></span>
+              <span className={`w-1.5 h-1.5 rounded-full ${isContinuousMode ? 'bg-blue-300' : 'bg-gray-300'}`}></span>
             </button>
 
             {/* Voice Gender Switcher */}
-            <div className="bg-[#e1f7ff] p-0.5 rounded-full flex items-center border border-[#cfe7e6] shadow-xs">
+            <div className="bg-blue-50 p-0.5 rounded-full flex items-center border border-blue-200 shadow-xs">
               <button
                 onClick={() => handleGenderToggle('female')}
                 className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold transition-all ${
                   currentGender === 'female'
-                    ? 'bg-[#006a65] text-white shadow-xs'
-                    : 'text-[#006a65] hover:bg-[#d1f4ff]'
+                    ? 'bg-blue-800 text-white shadow-xs'
+                    : 'text-blue-900 hover:bg-blue-100'
                 }`}
               >
                 <span className="material-symbols-outlined text-sm material-symbols-filled">female</span>
@@ -255,8 +255,8 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
                 onClick={() => handleGenderToggle('male')}
                 className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold transition-all ${
                   currentGender === 'male'
-                    ? 'bg-[#006a65] text-white shadow-xs'
-                    : 'text-[#006a65] hover:bg-[#d1f4ff]'
+                    ? 'bg-blue-800 text-white shadow-xs'
+                    : 'text-blue-900 hover:bg-blue-100'
                 }`}
               >
                 <span className="material-symbols-outlined text-sm material-symbols-filled">male</span>
@@ -268,22 +268,22 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
 
         {/* Persona Title with Direct Editable Badge */}
         <div className="flex items-center justify-center gap-2 mb-1 flex-wrap">
-          <h3 className="text-xl md:text-2xl font-extrabold text-[#001f26]">
+          <h3 className="text-xl md:text-2xl font-extrabold text-[#091e42]">
             {isTh ? `สนทนากับ "${aiName}"` : `Converse with "${aiName}"`}
           </h3>
-          <span className="text-[11px] font-bold text-[#006a65] bg-[#e1f7ff] px-2.5 py-0.5 rounded-full border border-[#cfe7e6]">
+          <span className="text-[11px] font-bold text-blue-800 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
             {currentGender === 'female' ? (isTh ? 'เสียงหญิง' : 'Female Voice') : (isTh ? 'เสียงชาย' : 'Male Voice')}
           </span>
           <button
             onClick={() => setIsEditingName(true)}
-            className="text-xs text-[#006a65] hover:underline font-semibold flex items-center gap-0.5"
+            className="text-xs text-blue-700 hover:underline font-semibold flex items-center gap-0.5"
           >
             <span className="material-symbols-outlined text-sm">edit</span>
             <span>{isTh ? 'แก้ไขชื่อ' : 'Rename'}</span>
           </button>
         </div>
 
-        <p className="text-xs md:text-sm text-[#4d6262] mb-5">
+        <p className="text-xs md:text-sm text-slate-600 mb-5">
           {isTh
             ? 'วิเคราะห์คำพูดของคุณอย่างแท้จริง ไม่ตอบนอกประเด็น พร้อมให้กำลังใจและชวนมองอนาคตไปด้วยกัน'
             : 'Analyzes your true speech intent, answers directly to the point, and offers genuine empathy.'}
@@ -317,19 +317,19 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
               <div className="absolute inset-0 rounded-full bg-rose-500/20 animate-ping pointer-events-none scale-150"></div>
             )}
             {isSpeaking && (
-              <div className="absolute inset-0 rounded-full bg-emerald-500/20 animate-ping pointer-events-none scale-150"></div>
+              <div className="absolute inset-0 rounded-full bg-blue-500/20 animate-ping pointer-events-none scale-150"></div>
             )}
 
             <button
               onClick={handleStartVoice}
-              className={`w-20 h-20 md:w-24 md:h-24 rounded-full flex flex-col items-center justify-center shadow-xl transition-all active:scale-90 border-4 relative z-10 ${
+              className={`w-20 h-20 md:w-24 md:h-24 rounded-full flex flex-col items-center justify-center shadow-xl transition-all active:scale-90 border-4 relative z-10 cursor-pointer ${
                 isListening
-                  ? 'bg-[#ba1a1a] border-rose-200 text-white voice-listen-glow'
+                  ? 'bg-red-600 border-rose-200 text-white voice-listen-glow'
                   : isSpeaking
-                  ? 'bg-[#006a65] border-[#2bb8b0] text-white voice-speak-glow'
+                  ? 'bg-blue-700 border-blue-400 text-white voice-speak-glow'
                   : isGenerating
-                  ? 'bg-[#4d6262] border-white text-white animate-pulse'
-                  : 'bg-[#006a65] border-white text-white hover:bg-[#004340] hover:scale-105 shadow-md'
+                  ? 'bg-slate-600 border-white text-white animate-pulse'
+                  : 'bg-blue-800 border-blue-400/40 text-white hover:bg-blue-900 hover:scale-105 shadow-md'
               }`}
             >
               <span className="material-symbols-outlined text-3xl md:text-4xl material-symbols-filled">
@@ -359,7 +359,7 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
             </div>
             <button
               onClick={() => setIsMicGuideOpen(true)}
-              className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-full font-bold text-xs shrink-0 transition-all active:scale-95 flex items-center gap-1"
+              className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-full font-bold text-xs shrink-0 transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
             >
               <span className="material-symbols-outlined text-sm">build</span>
               <span>{isTh ? 'วิธีเปิดใช้งานไมค์' : 'Fix Microphone'}</span>
@@ -368,7 +368,7 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
         ) : (
           <button
             onClick={() => setIsMicGuideOpen(true)}
-            className="mt-2 text-[11px] text-[#006a65] hover:underline font-semibold flex items-center gap-1 opacity-80 hover:opacity-100"
+            className="mt-2 text-[11px] text-blue-700 hover:underline font-semibold flex items-center gap-1 opacity-80 hover:opacity-100 cursor-pointer"
           >
             <span className="material-symbols-outlined text-sm">settings_voice</span>
             <span>{isTh ? 'มีปัญหาไมโครโฟน? กดดูวิธีเปิดไมค์ / ทดสอบเสียง' : 'Mic issues? Click for setup guide'}</span>
@@ -376,21 +376,21 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
         )}
 
         {/* Live Speech Recognition & Analysis Display */}
-        <div className="w-full mt-4 bg-white rounded-2xl p-4 md:p-5 border border-[#cfe7e6] text-left shadow-xs">
+        <div className="w-full mt-4 bg-white rounded-2xl p-4 md:p-5 border border-slate-200 text-left shadow-xs">
           {hasUserSpoken && (
-            <div className="mb-3 pb-3 border-b border-[#cfe7e6]/60">
-              <span className="text-[10px] font-bold text-[#6c7a78] uppercase block mb-1">
+            <div className="mb-3 pb-3 border-b border-slate-200">
+              <span className="text-[10px] font-bold text-slate-500 uppercase block mb-1">
                 {isTh ? 'สิ่งที่คุณพูด (สิ่งที่ส่งให้ AI วิเคราะห์):' : 'What you said:'}
               </span>
-              <p className="text-sm font-semibold text-[#001f26]">
+              <p className="text-sm font-semibold text-[#091e42]">
                 "{liveTranscript}"
               </p>
 
               {/* REAL-TIME SPEECH & EMOTION ANALYSIS CARD */}
               {speechAnalysis && (
-                <div className="mt-2.5 p-3 bg-[#e1f7ff]/70 border border-[#bde9eb] rounded-xl flex flex-col gap-2">
+                <div className="mt-2.5 p-3 bg-blue-50/70 border border-blue-200 rounded-xl flex flex-col gap-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-[#006a65] flex items-center gap-1">
+                    <span className="text-[11px] font-bold text-blue-900 flex items-center gap-1">
                       <span className="material-symbols-outlined text-sm material-symbols-filled">insights</span>
                       <span>{isTh ? 'การวิเคราะห์การพูดและความรู้สึกของผู้ใช้:' : 'Speech & Emotion Analysis:'}</span>
                     </span>
@@ -399,7 +399,7 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
                         ? 'bg-rose-100 text-rose-700'
                         : speechAnalysis.energyLevel === 'high'
                         ? 'bg-emerald-100 text-emerald-700'
-                        : 'bg-teal-100 text-teal-800'
+                        : 'bg-blue-100 text-blue-800'
                     }`}>
                       {isTh
                         ? `ระดับพลังใจ: ${speechAnalysis.energyLevel === 'low' ? 'ต้องการเติมพลัง' : speechAnalysis.energyLevel === 'high' ? 'มีพลังบวก' : 'ปานกลาง'}`
@@ -409,25 +409,25 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs">
                     <div>
-                      <span className="text-[#6c7a78] text-[10px] block font-medium">
+                      <span className="text-slate-500 text-[10px] block font-medium">
                         {isTh ? 'สภาวะอารมณ์ที่ตรวจพบ:' : 'Detected Mood:'}
                       </span>
-                      <span className="font-semibold text-[#001f26]">
+                      <span className="font-semibold text-[#091e42]">
                         {speechAnalysis.detectedMood}
                       </span>
                     </div>
                     <div>
-                      <span className="text-[#6c7a78] text-[10px] block font-medium">
+                      <span className="text-slate-500 text-[10px] block font-medium">
                         {isTh ? 'เจตนา / ประเด็นหลัก:' : 'Core Intent:'}
                       </span>
-                      <span className="font-semibold text-[#001f26]">
+                      <span className="font-semibold text-[#091e42]">
                         {speechAnalysis.detectedIntent}
                       </span>
                     </div>
                   </div>
 
                   {speechAnalysis.encouragementFocus && (
-                    <div className="pt-1 border-t border-[#bde9eb]/60 text-[11px] text-[#006a65] font-medium flex items-center gap-1">
+                    <div className="pt-1 border-t border-blue-200/60 text-[11px] text-blue-800 font-medium flex items-center gap-1">
                       <span className="material-symbols-outlined text-xs">emoji_objects</span>
                       <span>{isTh ? `แนวทางเยียวยา: ${speechAnalysis.encouragementFocus}` : `Focus: ${speechAnalysis.encouragementFocus}`}</span>
                     </div>
@@ -440,7 +440,7 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
           {/* AI Verbal Response */}
           <div>
             <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-              <span className="text-[11px] font-bold text-[#006a65] uppercase flex items-center gap-1.5">
+              <span className="text-[11px] font-bold text-blue-900 uppercase flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-sm material-symbols-filled">
                   record_voice_over
                 </span>
@@ -452,10 +452,10 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
                 <button
                   type="button"
                   onClick={() => speakCurrentResponse()}
-                  className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all shadow-2xs active:scale-95 ${
+                  className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all shadow-2xs active:scale-95 cursor-pointer ${
                     isSpeaking
-                      ? 'bg-emerald-600 text-white animate-pulse'
-                      : 'bg-[#006a65] hover:bg-[#004340] text-white'
+                      ? 'bg-blue-600 text-white animate-pulse'
+                      : 'bg-blue-800 hover:bg-blue-900 text-white'
                   }`}
                   title={isTh ? 'ฟังเสียง AI อ่านคำตอบนี้' : 'Listen to AI voice reply'}
                 >
@@ -476,7 +476,7 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
                       voiceAssistant.stopSpeaking();
                       setIsSpeaking(false);
                     }}
-                    className="text-[11px] text-[#ba1a1a] hover:underline font-bold flex items-center gap-0.5 px-2 py-1 rounded-full bg-rose-50 border border-rose-200"
+                    className="text-[11px] text-red-600 hover:underline font-bold flex items-center gap-0.5 px-2 py-1 rounded-full bg-rose-50 border border-rose-200 cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-xs">stop_circle</span>
                     <span>{isTh ? 'หยุดเสียง' : 'Stop'}</span>
@@ -485,7 +485,7 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
               </div>
             </div>
 
-            <p className="text-xs md:text-sm text-[#001f26] leading-relaxed font-medium bg-[#f1fbff]/60 p-3.5 rounded-xl border border-[#cfe7e6]">
+            <p className="text-xs md:text-sm text-[#091e42] leading-relaxed font-medium bg-slate-50/70 p-3.5 rounded-xl border border-slate-200">
               {aiResponse}
             </p>
           </div>
@@ -503,7 +503,7 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
                   ? `พิมพ์หรือพูดคำว่า "เราเหนื่อย", "กังวลเรื่องสอบ", "เธอชื่ออะไร"...`
                   : `Type or speak what you feel (e.g. "I am tired", "anxious")...`
               }
-              className="w-full bg-white border border-[#cfe7e6] rounded-2xl py-3 pl-4 pr-10 text-xs md:text-sm text-[#001f26] outline-none focus:border-[#006a65] shadow-xs"
+              className="w-full bg-white border border-slate-300 rounded-2xl py-3 pl-4 pr-10 text-xs md:text-sm text-[#091e42] outline-none focus:border-blue-600 shadow-xs"
             />
             {typedInput && (
               <button
@@ -518,9 +518,9 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
           <button
             type="submit"
             disabled={!typedInput.trim() || isGenerating}
-            className={`px-4 py-3 rounded-2xl font-bold text-xs md:text-sm flex items-center gap-1.5 transition-all shadow-xs shrink-0 ${
+            className={`px-4 py-3 rounded-2xl font-bold text-xs md:text-sm flex items-center gap-1.5 transition-all shadow-xs shrink-0 cursor-pointer ${
               typedInput.trim() && !isGenerating
-                ? 'bg-[#006a65] hover:bg-[#004340] text-white active:scale-95'
+                ? 'bg-blue-800 hover:bg-blue-900 text-white active:scale-95'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
@@ -531,7 +531,7 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
 
         {/* Quick Direct Discussion Prompts (Including the user's specific scenario) */}
         <div className="w-full mt-3 flex flex-wrap items-center justify-center gap-2">
-          <span className="text-[11px] text-[#6c7a78] font-medium mr-1">
+          <span className="text-[11px] text-slate-500 font-medium mr-1">
             {isTh ? 'หัวข้อตรงประเด็นยอดนิยม:' : 'Quick topics:'}
           </span>
           {[
@@ -560,10 +560,10 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
               key={idx}
               type="button"
               onClick={() => processInput(isTh ? prompt.th : prompt.en)}
-              className="text-xs bg-[#e1f7ff] hover:bg-[#d1f4ff] text-[#006a65] font-semibold px-3 py-1.5 rounded-full border border-[#cfe7e6] transition-all active:scale-95 flex items-center gap-1 shadow-2xs"
+              className="text-xs bg-blue-50/80 hover:bg-blue-100 text-blue-900 font-semibold px-3 py-1.5 rounded-full border border-blue-200 transition-all active:scale-95 flex items-center gap-1 shadow-2xs cursor-pointer"
             >
               <span>{isTh ? prompt.th : prompt.en}</span>
-              <span className="text-[9px] bg-[#2bb8b0]/20 text-[#004340] px-1.5 py-0.2 rounded-full">
+              <span className="text-[9px] bg-blue-200/60 text-blue-950 px-1.5 py-0.2 rounded-full font-bold">
                 {prompt.badge}
               </span>
             </button>
@@ -571,7 +571,7 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
           <button
             type="button"
             onClick={onNavigateToChat}
-            className="text-xs text-[#006a65] hover:underline font-bold px-2 py-1 ml-auto flex items-center gap-1"
+            className="text-xs text-blue-700 hover:underline font-bold px-2 py-1 ml-auto flex items-center gap-1 cursor-pointer"
           >
             <span>{isTh ? 'เปิดห้องแชตแบบเต็ม' : 'Full Chat View'}</span>
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -582,21 +582,21 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
       {/* EDIT AI NAME MODAL */}
       {isEditingName && (
         <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-[#cfe7e6] relative animate-fade-in text-left">
+          <div className="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-slate-200 relative animate-fade-in text-left">
             <button
               onClick={() => setIsEditingName(false)}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f1fbff] flex items-center justify-center text-[#6c7a78] hover:text-[#001f26]"
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-[#091e42] cursor-pointer"
             >
               <span className="material-symbols-outlined text-lg">close</span>
             </button>
 
             <div className="flex items-center gap-2 mb-2">
-              <span className="material-symbols-outlined text-2xl text-[#006a65]">smart_toy</span>
-              <h3 className="text-lg font-bold text-[#001f26]">
+              <span className="material-symbols-outlined text-2xl text-blue-700">smart_toy</span>
+              <h3 className="text-lg font-bold text-[#091e42]">
                 {isTh ? 'ตั้งชื่อผู้ช่วย AI ตามใจคุณ' : 'Customize AI Companion Name'}
               </h3>
             </div>
-            <p className="text-xs text-[#6c7a78] mb-4">
+            <p className="text-xs text-slate-500 mb-4">
               {isTh
                 ? 'เปลี่ยนชื่อผู้ช่วยส่วนตัวได้ทันที เมื่อเปลี่ยนแล้ว AI จะขานชื่อนี้และจดจำชื่อใหม่ของคุณเสมอ'
                 : 'Give your AI assistant any personalized name you prefer.'}
@@ -604,7 +604,7 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
 
             <form onSubmit={handleSaveAiName} className="flex flex-col gap-4">
               <div>
-                <label className="text-xs font-semibold text-[#001f26] block mb-1">
+                <label className="text-xs font-semibold text-[#091e42] block mb-1">
                   {isTh ? 'ชื่อ AI ของคุณ' : 'AI Companion Name'}
                 </label>
                 <input
@@ -613,13 +613,13 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
                   value={tempNameInput}
                   onChange={(e) => setTempNameInput(e.target.value)}
                   placeholder="เช่น ซะกีนะฮ์, ซูลัยมาน, พัทนา, นูรียา, มีนา, Nova..."
-                  className="w-full bg-[#f1fbff] border border-[#cfe7e6] rounded-2xl p-3 text-sm text-[#001f26] outline-none focus:border-[#006a65]"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-2xl p-3 text-sm text-[#091e42] outline-none focus:border-blue-600"
                 />
               </div>
 
               {/* Quick Presets */}
               <div>
-                <span className="text-[11px] text-[#6c7a78] block mb-1.5 font-medium">
+                <span className="text-[11px] text-slate-500 block mb-1.5 font-medium">
                   {isTh ? 'กดเลือกชื่อแนะนำยอดนิยมได้ทันที:' : 'Popular suggested names:'}
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -628,10 +628,10 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
                       key={name}
                       type="button"
                       onClick={() => setTempNameInput(name)}
-                      className={`text-xs px-2.5 py-1 rounded-full border transition-all ${
+                      className={`text-xs px-2.5 py-1 rounded-full border transition-all cursor-pointer ${
                         tempNameInput === name
-                          ? 'bg-[#006a65] text-white border-[#006a65]'
-                          : 'bg-[#f1fbff] text-[#3c4948] border-[#cfe7e6] hover:bg-white'
+                          ? 'bg-blue-800 text-white border-blue-900'
+                          : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-blue-50'
                       }`}
                     >
                       {name}
@@ -644,13 +644,13 @@ export const VoiceAiHero: React.FC<VoiceAiHeroProps> = ({
                 <button
                   type="button"
                   onClick={() => setIsEditingName(false)}
-                  className="flex-1 py-3 bg-[#f1fbff] text-[#3c4948] rounded-full text-xs font-semibold hover:bg-white"
+                  className="flex-1 py-3 bg-slate-100 text-slate-700 rounded-full text-xs font-semibold hover:bg-slate-200 cursor-pointer"
                 >
                   {isTh ? 'ยกเลิก' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-3 bg-[#006a65] text-white rounded-full text-xs font-semibold hover:bg-[#004340] active:scale-95 transition-all shadow-xs"
+                  className="flex-1 py-3 bg-blue-800 text-white rounded-full text-xs font-semibold hover:bg-blue-900 active:scale-95 transition-all shadow-xs cursor-pointer"
                 >
                   {isTh ? 'บันทึกและให้ AI ขานชื่อ' : 'Save & Confirm'}
                 </button>

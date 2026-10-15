@@ -102,9 +102,18 @@ export const MicrophoneGuideModal: React.FC<MicrophoneGuideModalProps> = ({
     }
   };
 
+  const [copiedLink, setCopiedLink] = useState(false);
+
   const handleOpenInNewTab = () => {
-    // Open the current dev or shared app URL in a standalone full browser tab
-    window.open(window.location.href, '_blank');
+    try {
+      if (typeof navigator !== 'undefined' && navigator.clipboard) {
+        navigator.clipboard.writeText(window.location.href);
+        setCopiedLink(true);
+        setTimeout(() => setCopiedLink(false), 3000);
+      }
+    } catch {
+      // fallback
+    }
   };
 
   return (
@@ -227,8 +236,18 @@ export const MicrophoneGuideModal: React.FC<MicrophoneGuideModalProps> = ({
             onClick={handleOpenInNewTab}
             className="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs"
           >
-            <span className="material-symbols-outlined text-sm">open_in_new</span>
-            <span>{isTh ? 'เปิดแอปในแท็บใหม่เต็มจอ' : 'Open App in New Tab'}</span>
+            <span className="material-symbols-outlined text-sm">
+              {copiedLink ? 'check' : 'content_copy'}
+            </span>
+            <span>
+              {copiedLink
+                ? isTh
+                  ? 'คัดลอกลิงก์แอปแล้ว! นำไปวางในแท็บใหม่ได้เลย'
+                  : 'Link copied! Paste in new browser tab'
+                : isTh
+                ? 'คัดลอกลิงก์แอปเปิดในแท็บใหม่'
+                : 'Copy App Link for New Tab'}
+            </span>
           </button>
         </div>
 
